@@ -1,0 +1,28 @@
+version: "3"
+services:
+  #docker exec -it docker-postgres-1 psql -U ls_admin -d linkShortenerDB
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=ls_admin
+      #only for development purposes
+      - POSTGRES_PASSWORD=Pa$w0rd
+      - POSTGRES_DB=linkShortenerDB
+    volumes:
+      #use premade volume for data storage (for educational purposes)
+      - LinkShortenerDB:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+  redis:
+    image: redis:latest
+    environment:
+      - REDIS_PASSWORD=Pa$$w0rd
+      - REDIS_USER=ls_admin
+      - REDIS_USER_PASSWORD=Pa$$w0rd
+    ports:
+      - "6380:6379"
+    volumes:
+      - LinkShortenerRedis:/data
+volumes:
+  LinkShortenerDB:
+  LinkShortenerRedis:
